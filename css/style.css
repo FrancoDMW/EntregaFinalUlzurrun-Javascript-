@@ -1,0 +1,30 @@
+#contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .tarjeta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    width: 200px;
+    height: 400px;
+    padding: 5px;
+  }
+  
+  .tarjeta img {
+    width: 100%;
+    height: 50%;
+  }
+  
+  .carritoo{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    border: 2px solid black;
+  }
