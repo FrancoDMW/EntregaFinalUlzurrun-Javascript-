@@ -64,7 +64,15 @@ function renderizarmangas(arrayDemangas) {
 
 function agregarAlCarrito(e) {
     let mangaBuscado = mangas.find(manga => manga.id == e.target.id)
-    carro.push(mangaBuscado)
+    let chequeoManga = carro.findIndex(manga => manga.id == mangaBuscado.id)
+    if(chequeoManga!=-1){
+        carro[chequeoManga].cantidad++
+        carro[chequeoManga].precioTotalCantidad = carro[chequeoManga].cantidad*carro[chequeoManga].precio
+    }
+    else{
+        carro.push({id: mangaBuscado.id, nombre: mangaBuscado.nombre, categoria: mangaBuscado.categoria, precio:mangaBuscado.precio, marca: mangaBuscado.marca, cantidad: 1, precioTotalCantidad:mangaBuscado.precio})
+    }
+
     actualizarCarrito()
     /*for(var i = 0; i<carro.length; i++){
       console.log(carro[i]);
@@ -72,15 +80,19 @@ function agregarAlCarrito(e) {
     console.log(carro)
 }
 
+let totalTotal = 0
 const actualizarCarrito = () => {
     carrito.innerHTML = "<h3>Carrito</h3>"
     carro.forEach((prod) => {
         const div = document.createElement('div')
         div.className = ('list-group')
         div.innerHTML = `
-        <li class = "list-group-item">${prod.nombre}</li>
-        <li class = "list-group-item">Precio: ${prod.precio}$</li>
+        <li class = "list-group-item">Nombre: ${prod.nombre}</li>
+        <li class = "list-group-item">Precio: ${prod.precioTotalCantidad}$</li>
+        <li class = "list-group-item">Cantidad: ${prod.cantidad}</li>
         `
         carrito.appendChild(div)
     })
+    totalTotal = carro.reduce((acc, valorTotal) => acc + valorTotal.precioTotalCantidad, 0)
+    carrito.innerHTML += `Total Carrito: $${totalTotal}`
 }
