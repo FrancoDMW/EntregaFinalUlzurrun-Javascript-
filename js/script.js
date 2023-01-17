@@ -72,11 +72,7 @@ function agregarAlCarrito(e) {
     else{
         carro.push({id: mangaBuscado.id, nombre: mangaBuscado.nombre, categoria: mangaBuscado.categoria, precio:mangaBuscado.precio, marca: mangaBuscado.marca, cantidad: 1, precioTotalCantidad:mangaBuscado.precio})
     }
-
     actualizarCarrito()
-    /*for(var i = 0; i<carro.length; i++){
-      console.log(carro[i]);
-    }*/
     console.log(carro)
 }
 
