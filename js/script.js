@@ -31,6 +31,7 @@ let inicio = document.getElementById("Inicio")
 let cartNav = document.getElementById("cart-nav")
 let botonCarrito = document.getElementById("cart-button")
 let modal = document.getElementById("myModal");
+var toastLiveExample = document.getElementById('liveToast')
 botonCarrito.addEventListener("click", esconder)
 filtroAccion.addEventListener("click", renderizarmangasFiltrados)
 filtroDeportes.addEventListener("click", renderizarmangasFiltrados)
@@ -47,8 +48,7 @@ function renderizarmangasFiltrados(e) {
 }
 
 function renderizarMangasFiltradosBuscador(e) {
-    let mangasFiltrados = mangas.filter(o => { return (o.nombre.toLowerCase().includes(buscador.value.toLowerCase()) || o.categoria.toLowerCase().includes(buscador.value.toLowerCase()) || o.marca.toLowerCase().includes(buscador.value.toLowerCase())) })/* 
-    let librosFiltrados = libros.filter(libro => libro.titulo.toLowerCase().includes(buscador.value.toLowerCase())) */
+    let mangasFiltrados = mangas.filter(o => { return (o.nombre.toLowerCase().includes(buscador.value.toLowerCase()) || o.categoria.toLowerCase().includes(buscador.value.toLowerCase()) || o.marca.toLowerCase().includes(buscador.value.toLowerCase())) })
     console.log(mangasFiltrados)
     renderizarmangas(mangasFiltrados)
 }
@@ -63,7 +63,7 @@ function renderizarmangas(arrayDemangas) {
         <p>$${manga.precio}</p>
         <img src=${manga.rutaImagen}>
         <button type="button" class="btn btn-outline-success" style= "margin-top: 20px" id=${manga.id}>Agregar al carrito</button>
-      `
+        `
         contenedor.appendChild(tarjeta)
     }
 
@@ -85,8 +85,10 @@ function agregarAlCarrito(e) {
     }
     totalFinal = carro.reduce((a, b) => a + b.precioTotalCantidad, 0)
     unidades = carro.reduce((a, b) => a + b.cantidad, 0)
+    var toast = new bootstrap.Toast(toastLiveExample)
+    toast.show()
     actualizarCarrito(carro)
-    totalRender(carro)
+    actualizarCarritoFinal(carro)
     console.log(carro)
 }
 
@@ -105,7 +107,7 @@ function eliminarCarrito(e) {
     totalFinal = carro.reduce((a, b) => a + b.precioTotalCantidad, 0)
     unidades = carro.reduce((a, b) => a + b.cantidad, 0)
     actualizarCarrito(carro)
-    totalRender(carro)
+    actualizarCarritoFinal(carro)
     console.log(carro)
 }
 
@@ -118,10 +120,10 @@ function actualizarCarrito(array) {
         div.className = "list-group list-group-horizontal"
         div.innerHTML = `
         <div class = "carrito list-group-item">
-        <div style = "flex:2">${nombre}</div>
-        <div style="flex:2"><img class="imagenCarrito" src="${img}"></div>
-        <div style = "flex:2">Precio: ${precioTotalCantidad}$</div>
-        <div style = "flex:2">Cantidad: ${cantidad}</div>
+        <div>${nombre}</div>
+        <div><img class="imagenCarrito" src="${img}"></div>
+        <div>Precio: ${precioTotalCantidad}$</div>
+        <div>Cantidad: ${cantidad}</div>
         <button id="${id}"class = "restar list-group-item btn btn-outline-success"> - </button>
         <button id="${id}"class = "sumar list-group-item btn btn-outline-success"> + </button>
         </div>
@@ -139,7 +141,7 @@ function actualizarCarrito(array) {
     }
 }
 
-function totalRender(array) {
+function actualizarCarritoFinal(array) {
     totalFinal = carro.reduce((a, b) => a + b.precioTotalCantidad, 0)
     unidades = carro.reduce((a, b) => a + b.cantidad, 0)
     total.innerHTML = ""
@@ -170,7 +172,7 @@ function totalRender(array) {
         cartNav.append(parrafo)
     }
 }
-function totalRenderVacio(array) {
+function actualizarCarritoFinalVacio(array) {
     total.innerHTML = ""
     let totalResumen = document.createElement("div")
     totalResumen.className = "total"
@@ -201,4 +203,6 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
+
+
 
