@@ -49,3 +49,36 @@ body{
 	margin: 10px;
 	border-bottom: 1px solid #ececec;
 }
+
+.imagen{
+  height: 600px;
+  filter: brightness(50%);
+  position: relative;
+}
+
+.divBanner{
+  position:absolute;
+  height:600px;
+  width:1320px;
+  display: flex;
+  justify-content: center;
+}
+
+h1{
+  position: absolute;
+  color:white;
+  font-size: 100px;
+  font-family: fantasy;
+  padding-top: 50px;
+}
+
+@media (min-width: 300px) and (max-width: 770px) {
+  h1{
+    font-size: 50px;
+  } 
+}
+@media (min-width: 100px) and (max-width: 290px) {
+  h1{
+    font-size: 20px;
+  } 
+}
