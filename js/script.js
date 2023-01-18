@@ -22,13 +22,16 @@ renderizarmangas(mangas)
 let carrito = document.getElementById("carrito")
 let buscador = document.getElementById("searchByText")
 buscador.addEventListener("input", renderizarMangasFiltradosBuscador)
-
+let contenedorCarritoTotal = document.getElementById("contenedorCarritoTotal")
 let filtroAccion = document.getElementById("Accion")
 let filtroDeportes = document.getElementById("Deportes")
 let filtroSliceOfLife = document.getElementById("Slice of Life")
 let todos = document.getElementById("Todos")
 let inicio = document.getElementById("Inicio")
-
+let cartNav = document.getElementById("cart-nav")
+let botonCarrito = document.getElementById("cart-button")
+let modal = document.getElementById("myModal");
+botonCarrito.addEventListener("click", esconder)
 filtroAccion.addEventListener("click", renderizarmangasFiltrados)
 filtroDeportes.addEventListener("click", renderizarmangasFiltrados)
 filtroSliceOfLife.addEventListener("click", renderizarmangasFiltrados)
@@ -78,11 +81,12 @@ function agregarAlCarrito(e) {
         carro[chequeoManga].precioTotalCantidad = carro[chequeoManga].cantidad * carro[chequeoManga].precio
     }
     else {
-        carro.push({ id: mangaBuscado.id, nombre: mangaBuscado.nombre, categoria: mangaBuscado.categoria, precio: mangaBuscado.precio, marca: mangaBuscado.marca, cantidad: 1, precioTotalCantidad: mangaBuscado.precio })
+        carro.push({ id: mangaBuscado.id, nombre: mangaBuscado.nombre, categoria: mangaBuscado.categoria, precio: mangaBuscado.precio, marca: mangaBuscado.marca, cantidad: 1, precioTotalCantidad: mangaBuscado.precio, img: mangaBuscado.rutaImagen})
     }
     totalFinal = carro.reduce((a, b) => a + b.precioTotalCantidad, 0)
     unidades = carro.reduce((a, b) => a + b.cantidad, 0)
     actualizarCarrito(carro)
+    totalRender(carro)
     console.log(carro)
 }
 
@@ -101,6 +105,7 @@ function eliminarCarrito(e) {
     totalFinal = carro.reduce((a, b) => a + b.precioTotalCantidad, 0)
     unidades = carro.reduce((a, b) => a + b.cantidad, 0)
     actualizarCarrito(carro)
+    totalRender(carro)
     console.log(carro)
 }
 
@@ -108,12 +113,13 @@ function actualizarCarrito(array) {
     carrito.innerHTML = ""
     carrito.style.display = "flex";
     for (let manga of array) {
-        let { nombre, cantidad, precioTotalCantidad, id } = manga
+        let { nombre, cantidad, precioTotalCantidad, id, img} = manga
         let div = document.createElement('div')
-        div.className = "list-group"
+        div.className = "list-group list-group-horizontal"
         div.innerHTML = `
-        <div class = "carrito_edicion">
+        <div class = "carrito list-group-item">
         <div style = "flex:2">${nombre}</div>
+        <div style="flex:2"><img class="imagenCarrito" src="${img}"></div>
         <div style = "flex:2">Precio: ${precioTotalCantidad}$</div>
         <div style = "flex:2">Cantidad: ${cantidad}</div>
         <button id="${id}"class = "restar list-group-item btn btn-outline-success"> - </button>
@@ -130,6 +136,69 @@ function actualizarCarrito(array) {
         for (let b of sumar) {
             b.addEventListener("click", agregarAlCarrito)
         }
+    }
+}
+
+function totalRender(array) {
+    totalFinal = carro.reduce((a, b) => a + b.precioTotalCantidad, 0)
+    unidades = carro.reduce((a, b) => a + b.cantidad, 0)
+    total.innerHTML = ""
+    let totalResumen = document.createElement("div")
+    totalResumen.className = "total"
+    totalResumen.innerHTML = `
+        <span class="close">&times;</span> 
+        <div style = "text-align:center">
+        <h6>Items: <strong>${unidades} </strong></h6>
+        <h6>Total:<strong> $ ${totalFinal.toFixed(2)}</strong></h6>
+        </div>
+        `
+    total.append(totalResumen)
+    let span = document.getElementsByClassName("close")[0];
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    cartNav.innerHTML = ""
+    if (array.lenght != 0) {
+        let parrafo = document.createElement("div")
+        parrafo.className = "cart-total"
+        parrafo.innerHTML = `<p>${unidades}</p>`
+        cartNav.append(parrafo)
+    } else {
+        let parrafo = document.createElement("div")
+        parrafo.className = "cart-total"
+        parrafo.innerHTML = `<p>0</p>`
+        cartNav.append(parrafo)
+    }
+}
+function totalRenderVacio(array) {
+    total.innerHTML = ""
+    let totalResumen = document.createElement("div")
+    totalResumen.className = "total"
+    totalResumen.innerHTML = `
+            <span class="close">&times;</span> 
+            <h5 class="totalh5">Items: <strong>  0 </strong></h5>
+            <h5 class="totalh5">Total:<strong> $ 0.00 </strong></h5>
+            `
+    total.append(totalResumen)
+    cartNav.innerHTML = ""
+    let parrafo = document.createElement("div")
+    parrafo.className = "cart-total"
+    parrafo.innerHTML = `<p>0</p>`
+    cartNav.append(parrafo)
+
+    let span = document.getElementsByClassName("close")[0];
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+}
+
+function esconder(e) {
+    modal.style.display = "block";
+}
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
     }
 }
 
