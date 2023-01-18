@@ -75,10 +75,16 @@ h1{
 @media (min-width: 300px) and (max-width: 770px) {
   h1{
     font-size: 50px;
+  }
+  .imagen{
+    height:300px;
   } 
 }
 @media (min-width: 100px) and (max-width: 290px) {
   h1{
     font-size: 20px;
-  } 
+  }
+  .imagen{
+    height:200px;
+  }  
 }
