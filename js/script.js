@@ -38,7 +38,7 @@ filtroSliceOfLife.addEventListener("click", renderizarmangasFiltrados)
 todos.addEventListener("click", renderizarmangasFiltrados)
 inicio.addEventListener("click", renderizarmangasFiltrados)
 renderizarmangas(mangas)
-historial (carro)
+historial(carro)
 
 function renderizarmangasFiltrados(e) {
     if (e.target.id == "Todos" || e.target.id == "Inicio") {
@@ -92,7 +92,7 @@ function agregarAlCarrito(e) {
         localStorage.setItem("carrito", carroHist)
     }
     else {
-        carro.push({ id: mangaBuscado.id, nombre: mangaBuscado.nombre, categoria: mangaBuscado.categoria, precio: mangaBuscado.precio, marca: mangaBuscado.marca, cantidad: 1, precioTotalCantidad: mangaBuscado.precio, img: mangaBuscado.rutaImagen})
+        carro.push({ id: mangaBuscado.id, nombre: mangaBuscado.nombre, categoria: mangaBuscado.categoria, precio: mangaBuscado.precio, marca: mangaBuscado.marca, cantidad: 1, precioTotalCantidad: mangaBuscado.precio, img: mangaBuscado.rutaImagen })
         carroHist = JSON.stringify(carro)
         localStorage.setItem("carrito", carroHist)
     }
@@ -142,7 +142,7 @@ function actualizarCarrito(array) {
         modal.style.display = "none";
     }
     for (let manga of array) {
-        let { nombre, cantidad, precioTotalCantidad, id, img} = manga
+        let { nombre, cantidad, precioTotalCantidad, id, img } = manga
         let div = document.createElement('div')
         div.className = "list-group"
         div.innerHTML = `
@@ -195,6 +195,7 @@ function actualizarCarritoFinal(array) {
         carritoBanner.append(parrafo)
     }
 }
+
 function actualizarCarritoFinalVacio(array) {
     total.innerHTML = ""
     let totalResumen = document.createElement("div")
