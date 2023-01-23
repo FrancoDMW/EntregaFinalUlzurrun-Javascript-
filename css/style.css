@@ -2,6 +2,7 @@ body{
   background-image: url("../img/fondo3.png");
   background-color:black;
   background-size: cover;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 footer {
@@ -34,11 +35,18 @@ footer {
   margin-right: 10px;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: 17px;
+  border-radius: 10px;
 }
 
 .isologotipo{
   width: 10%;
   height: 10%;
+}
+
+.logotipo{
+  width: 80px;
+  height: 80px;
+  border-radius: 50px;
 }
 
 .tarjeta img {
@@ -215,6 +223,7 @@ h5{
 background-color: #5cb85c;
 color:white;
 }
+
 .wrapper {
   display: grid;
   grid-gap: 10px;
